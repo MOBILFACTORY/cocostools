@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CocosTools", "CocosTools\CocosTools.csproj", "{FE44450A-6DC0-4F9E-900C-EA9BE3ECE0BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE44450A-6DC0-4F9E-900C-EA9BE3ECE0BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE44450A-6DC0-4F9E-900C-EA9BE3ECE0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE44450A-6DC0-4F9E-900C-EA9BE3ECE0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE44450A-6DC0-4F9E-900C-EA9BE3ECE0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
