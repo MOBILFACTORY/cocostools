@@ -37,7 +37,6 @@ partial class AnimationForm
             this.imgSpriteFrame = new System.Windows.Forms.PictureBox();
             this.listFrames = new System.Windows.Forms.ListView();
             this.checkBoxRestoreOriginalFrame = new System.Windows.Forms.CheckBox();
-            this.numericLoops = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDelay = new System.Windows.Forms.TextBox();
@@ -46,8 +45,9 @@ partial class AnimationForm
             this.btnRemoveAnimation = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtLoops = new System.Windows.Forms.TextBox();
+            this.checkBoxLoop = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgSpriteFrame)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericLoops)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddAnimation
@@ -105,6 +105,7 @@ partial class AnimationForm
             this.listAnimation.ItemHeight = 15;
             this.listAnimation.Location = new System.Drawing.Point(556, 27);
             this.listAnimation.Name = "listAnimation";
+            this.listAnimation.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listAnimation.Size = new System.Drawing.Size(440, 345);
             this.listAnimation.TabIndex = 1;
             this.listAnimation.SelectedIndexChanged += new System.EventHandler(this.listAnimation_SelectedIndexChanged);
@@ -165,37 +166,13 @@ partial class AnimationForm
             this.checkBoxRestoreOriginalFrame.AutoSize = true;
             this.checkBoxRestoreOriginalFrame.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.checkBoxRestoreOriginalFrame.ForeColor = System.Drawing.Color.White;
-            this.checkBoxRestoreOriginalFrame.Location = new System.Drawing.Point(380, 429);
+            this.checkBoxRestoreOriginalFrame.Location = new System.Drawing.Point(379, 429);
             this.checkBoxRestoreOriginalFrame.Name = "checkBoxRestoreOriginalFrame";
             this.checkBoxRestoreOriginalFrame.Size = new System.Drawing.Size(202, 19);
             this.checkBoxRestoreOriginalFrame.TabIndex = 11;
             this.checkBoxRestoreOriginalFrame.Text = "Restore Original Frame";
             this.checkBoxRestoreOriginalFrame.UseVisualStyleBackColor = true;
             this.checkBoxRestoreOriginalFrame.CheckedChanged += new System.EventHandler(this.checkBoxRestoreOriginalFrame_CheckedChanged);
-            // 
-            // numericLoops
-            // 
-            this.numericLoops.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.numericLoops.Location = new System.Drawing.Point(304, 426);
-            this.numericLoops.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.numericLoops.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericLoops.Name = "numericLoops";
-            this.numericLoops.Size = new System.Drawing.Size(62, 23);
-            this.numericLoops.TabIndex = 12;
-            this.numericLoops.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericLoops.ValueChanged += new System.EventHandler(this.numericLoops_ValueChanged);
             // 
             // label1
             // 
@@ -222,7 +199,7 @@ partial class AnimationForm
             // txtDelay
             // 
             this.txtDelay.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtDelay.Location = new System.Drawing.Point(182, 426);
+            this.txtDelay.Location = new System.Drawing.Point(180, 426);
             this.txtDelay.MaxLength = 5;
             this.txtDelay.Name = "txtDelay";
             this.txtDelay.Size = new System.Drawing.Size(61, 23);
@@ -239,6 +216,7 @@ partial class AnimationForm
             this.listDir.ItemHeight = 15;
             this.listDir.Location = new System.Drawing.Point(12, 27);
             this.listDir.Name = "listDir";
+            this.listDir.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listDir.Size = new System.Drawing.Size(440, 345);
             this.listDir.TabIndex = 17;
             this.listDir.SelectedIndexChanged += new System.EventHandler(this.listDir_SelectedIndexChanged);
@@ -248,7 +226,7 @@ partial class AnimationForm
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.labelName.ForeColor = System.Drawing.Color.White;
-            this.labelName.Location = new System.Drawing.Point(134, 396);
+            this.labelName.Location = new System.Drawing.Point(134, 389);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(39, 15);
             this.labelName.TabIndex = 18;
@@ -291,12 +269,37 @@ partial class AnimationForm
             this.label4.TabIndex = 21;
             this.label4.Text = "Animations";
             // 
+            // txtLoops
+            // 
+            this.txtLoops.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLoops.Location = new System.Drawing.Point(301, 425);
+            this.txtLoops.MaxLength = 5;
+            this.txtLoops.Name = "txtLoops";
+            this.txtLoops.Size = new System.Drawing.Size(61, 23);
+            this.txtLoops.TabIndex = 22;
+            this.txtLoops.TextChanged += new System.EventHandler(this.txtLoops_TextChanged);
+            // 
+            // checkBoxLoop
+            // 
+            this.checkBoxLoop.AutoSize = true;
+            this.checkBoxLoop.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBoxLoop.ForeColor = System.Drawing.Color.White;
+            this.checkBoxLoop.Location = new System.Drawing.Point(301, 404);
+            this.checkBoxLoop.Name = "checkBoxLoop";
+            this.checkBoxLoop.Size = new System.Drawing.Size(82, 19);
+            this.checkBoxLoop.TabIndex = 23;
+            this.checkBoxLoop.Text = "Unlimit";
+            this.checkBoxLoop.UseVisualStyleBackColor = true;
+            this.checkBoxLoop.CheckedChanged += new System.EventHandler(this.checkBoxLoop_CheckedChanged);
+            // 
             // AnimationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(1008, 562);
+            this.Controls.Add(this.checkBoxLoop);
+            this.Controls.Add(this.txtLoops);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnRemoveAnimation);
@@ -308,7 +311,6 @@ partial class AnimationForm
             this.Controls.Add(this.txtDelay);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.numericLoops);
             this.Controls.Add(this.checkBoxRestoreOriginalFrame);
             this.Controls.Add(this.imgSpriteFrame);
             this.Controls.Add(this.listFrames);
@@ -319,7 +321,6 @@ partial class AnimationForm
             this.Name = "AnimationForm";
             this.Text = "Animation";
             ((System.ComponentModel.ISupportInitialize)(this.imgSpriteFrame)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericLoops)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,7 +337,6 @@ partial class AnimationForm
     private System.Windows.Forms.PictureBox imgSpriteFrame;
     private System.Windows.Forms.ListView listFrames;
     private System.Windows.Forms.CheckBox checkBoxRestoreOriginalFrame;
-    private System.Windows.Forms.NumericUpDown numericLoops;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.TextBox txtDelay;
@@ -345,4 +345,6 @@ partial class AnimationForm
     private System.Windows.Forms.Button btnRemoveAnimation;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.TextBox txtLoops;
+    private System.Windows.Forms.CheckBox checkBoxLoop;
 }

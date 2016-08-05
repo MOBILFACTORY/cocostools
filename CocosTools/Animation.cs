@@ -57,5 +57,10 @@ namespace CocosTools
             xml.AppendFormat("{0}    </dict>\n", space);
             return xml.ToString();
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

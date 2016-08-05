@@ -136,24 +136,13 @@ namespace CocosTools
             Atlas.Add(newData);
         }
 
-        public int AddAnimation()
+        public int CreateAnimation()
         {
             if (null == Animations)
                 Animations = new List<Animation>();
             var ani = new CocosTools.Animation();
             Animations.Add(ani);
             return Animations.IndexOf(ani);
-        }
-
-        public List<string> GetAnimationList()
-        {
-            var list = new List<string>();
-            if (null != Animations)
-            {
-                foreach (var data in Animations)
-                    list.Add(data.name);
-            }
-            return list;
         }
 
         public Animation GetAnimationAt(int index)
@@ -164,12 +153,27 @@ namespace CocosTools
             return Animations[index];
         }
 
+        public Animation FindAnimation(string name)
+        {
+            foreach (var anim in Animations)
+            {
+                if (name == anim.name)
+                    return anim;
+            }
+            return null;
+        }
+
         public bool RemoveAnimationAt(int index)
         {
             if (null == Animations || Animations.Count == 0 || index < 0)
                 return false;
             Animations.RemoveAt(index);
             return true;
+        }
+
+        public void RemoveAnimation(Animation item)
+        {
+            Animations.Remove(item);
         }
 
         public void ExportAnimationsPlist()

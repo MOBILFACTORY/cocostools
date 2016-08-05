@@ -162,6 +162,13 @@ public partial class CocosToolsForm : Form
             numOffsetX.Value = offset.X;
             numOffsetY.Value = offset.Y;
         }
+        else
+        {
+            numOffsetX.Value = 0;
+            numOffsetY.Value = 0;
+        }
+        label1.Focus();
+
         var copy = new Bitmap(selectedSprite.Image);
         var gr = Graphics.FromImage(copy);
         gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
@@ -188,6 +195,22 @@ public partial class CocosToolsForm : Form
         if (!string.IsNullOrEmpty(dlg.FileName))
         {
             imgAtlas.Image.Save(dlg.FileName + ".png");
+
+            // set offset
+            foreach (var sprite in sprites)
+            {
+                foreach (var atlas in currentProject.Atlas)
+                {
+                    if (atlas.Offsets != null && atlas.Offsets.ContainsKey(sprite.ImageName))
+                    {
+                        var offset = atlas.Offsets[sprite.ImageName];
+                        sprite.OffsetX = offset.X;
+                        sprite.OffsetY = offset.Y;
+                        break;
+                    }
+                }
+            }
+
             packer.GenerateSpriteSheetPlist(sprites, dlg.FileName);
         }
     }
