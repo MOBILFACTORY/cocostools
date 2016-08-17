@@ -256,5 +256,11 @@ namespace CocosTools.Atlas
             xml.AppendFormat("        </dict>\n");
             return xml.ToString();
         }
+
+        public string ToChar()
+        {
+            return string.Format("char id={0}\tx={1}\ty={2}\twidth={3}\theight={4}\txoffset={5}\tyoffset={6}\txadvance={7}\tpage={8}\tchnl={9}\n",
+                System.IO.Path.GetFileNameWithoutExtension(ImageName), Rect.x, Rect.y, Rect.w, Rect.h, OffsetX, OffsetY, Rect.w, 0, 15);
+        }
     }
 }

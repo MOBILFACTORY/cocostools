@@ -414,6 +414,12 @@ public partial class CocosToolsForm : Form
         form.UpdateList();
     }
 
+    private void fontsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var form = new FontForm();
+        form.Show();
+    }
+
     private List<string> getLastDirs(string path, string rootpath)
     {
         var list = new List<string>();

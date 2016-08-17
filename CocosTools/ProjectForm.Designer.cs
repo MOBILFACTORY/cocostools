@@ -53,6 +53,7 @@ partial class CocosToolsForm
             this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemView = new System.Windows.Forms.ToolStripMenuItem();
             this.atlasListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -364,7 +365,8 @@ partial class CocosToolsForm
             // menuItemView
             // 
             this.menuItemView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.atlasListToolStripMenuItem});
+            this.atlasListToolStripMenuItem,
+            this.fontsToolStripMenuItem});
             this.menuItemView.Name = "menuItemView";
             this.menuItemView.Size = new System.Drawing.Size(47, 20);
             this.menuItemView.Text = "VIEW";
@@ -372,9 +374,16 @@ partial class CocosToolsForm
             // atlasListToolStripMenuItem
             // 
             this.atlasListToolStripMenuItem.Name = "atlasListToolStripMenuItem";
-            this.atlasListToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.atlasListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.atlasListToolStripMenuItem.Text = "Animations";
             this.atlasListToolStripMenuItem.Click += new System.EventHandler(this.atlasListToolStripMenuItem_Click);
+            // 
+            // fontsToolStripMenuItem
+            // 
+            this.fontsToolStripMenuItem.Name = "fontsToolStripMenuItem";
+            this.fontsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fontsToolStripMenuItem.Text = "Fonts";
+            this.fontsToolStripMenuItem.Click += new System.EventHandler(this.fontsToolStripMenuItem_Click);
             // 
             // CocosToolsForm
             // 
@@ -438,5 +447,6 @@ partial class CocosToolsForm
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.NumericUpDown numPadding;
     private System.Windows.Forms.PictureBox imgAnchor;
+    private System.Windows.Forms.ToolStripMenuItem fontsToolStripMenuItem;
 }
 

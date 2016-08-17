@@ -210,5 +210,36 @@ namespace CocosTools.Atlas
                 file.Write(GetPlistTail(256));
             }
         }
+
+        /*
+         * 
+         * f = open('_output/' + filename + '.fnt','w')
+    f.write('info face="%s" size=%s bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1\n' % (filename, fontsize))
+    f.write('common lineHeight=%d base=28 scaleW=%d scaleH=%d pages=1 packed=0\n' % (line_height, sheet_size, sheet_size))
+    f.write('page id=0 file="%s.png"\n' % (filename))
+    f.write('chars count=%d\n' % (len(chars)))
+    for c in chars:
+        f.write(c.to_str())
+    f.write('kernings count=-1')
+         * */
+        public void GenerateFnt(List<Sprite> sprites, string path, string filename, int fontsize, int sheetWidth, int sheetHeight)
+        {
+            if (null == sprites)
+                return;
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path + ".fnt"))
+            {
+                var sb = new StringBuilder();
+                sb.AppendFormat("info face=\"{0}\" size={1} bold=0 italic=0 charset=\"\" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1\n", filename, fontsize);
+                sb.AppendFormat("common lineHeight={0} base=28 scaleW={1} scaleH={2} pages=1 packed=0\n", fontsize, sheetWidth, sheetHeight);
+                sb.AppendFormat("page id=0 file=\"{0}.png\"\n", filename);
+                sb.AppendFormat("chars count={0}\n", sprites.Count);
+                file.Write(sb.ToString());
+                foreach (var sprite in sprites)
+                {
+                    file.Write(sprite.ToChar());
+                }
+                file.Write("kernings count=-1");
+            }
+        }
     }
 }
