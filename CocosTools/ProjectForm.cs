@@ -7,8 +7,8 @@ public partial class CocosToolsForm : Form
 {
     private CocosTools.Project currentProject = null;
     private CocosTools.Atlas.Packer packer = new CocosTools.Atlas.Packer();
-    private List<CocosTools.Atlas.Sprite> sprites;
-    private CocosTools.Atlas.Sprite selectedSprite;
+    private List<CocosTools.Atlas.Sprite> sprites = new List<CocosTools.Atlas.Sprite>();
+    private List<CocosTools.Atlas.Sprite> selectedSprites = new List<CocosTools.Atlas.Sprite>();
 
     public CocosToolsForm()
     {
@@ -70,7 +70,7 @@ public partial class CocosToolsForm : Form
         imgAtlas.Image = null;
         picktureBoxCenter();
         sprites = null;
-        selectedSprite = null;
+        selectedSprites.Clear();
         UpdateAll();
     }
 
@@ -85,7 +85,7 @@ public partial class CocosToolsForm : Form
         imgAtlas.Image = null;
         picktureBoxCenter();
         sprites = null;
-        selectedSprite = null;
+        selectedSprites.Clear();
         UpdateAll();
     }
 
@@ -133,7 +133,8 @@ public partial class CocosToolsForm : Form
     {
         if (null == currentProject)
             return;
-        selectedSprite = null;
+
+        selectedSprites.Clear();
         if (null != sprites)
         {
             foreach (var sprite in sprites)
@@ -141,19 +142,80 @@ public partial class CocosToolsForm : Form
                 if (sprite.Rect.x < e.Location.X && sprite.Rect.x + sprite.Rect.w > e.Location.X
                     && sprite.Rect.y < e.Location.Y && sprite.Rect.y + sprite.Rect.h > e.Location.Y)
                 {
-                    selectedSprite = sprite;
-                    labelSprite.Text = sprite.ImageName;
+                    selectedSprites.Add(sprite);
                     ShowSelectedSprite();
                     break;
                 }
             }
         }
+
+        if (selectedSprites.Count > 0 && e.Button == MouseButtons.Right)
+        {
+            // 폴더 만큼 메뉴 생성
+            var paths = selectedSprites[0].ImageName.Split('/');
+            int len = paths.Length - 1;
+            var cm = new ContextMenu();
+            for (int i = 0; i < len; ++i)
+            {
+                var sb = new System.Text.StringBuilder();
+                for (int j = 0; j < i + 1; ++j)
+                {
+                    sb.Append(paths[j]);
+                    sb.Append("/");
+                }
+
+                if (i == 0)
+                    cm.MenuItems.Add("SelectAll", new EventHandler(AutoSelectSprite));
+                else
+                    cm.MenuItems.Add(string.Format("Select: {0}", sb.ToString()), new EventHandler(AutoSelectSprite));
+            }
+            imgAtlas.ContextMenu = cm;
+        }
+    }
+
+    private void AutoSelectSprite(object sender, EventArgs e)
+    {
+        var menuItem = sender as MenuItem;
+        var paths = menuItem.Text.Split(' ');
+        if (paths.Length == 1)
+        {
+            // select all
+            foreach (var sprite in sprites)
+                selectedSprites.Add(sprite);
+        }
+        else if (paths.Length == 2)
+        {
+            var path = paths[1];
+            foreach (var sprite in sprites)
+            {
+                if (sprite.ImageName.Contains(path))
+                    selectedSprites.Add(sprite);
+            }
+        }
+        ShowSelectedSprite();
     }
 
     private void ShowSelectedSprite()
     {
-        if (null == selectedSprite)
+        if (0 == selectedSprites.Count)
             return;
+
+        var selectedSprite = selectedSprites[0];
+        if (1 == selectedSprites.Count)
+        {
+            labelSprite.Text = selectedSprite.ImageName;
+        }
+        else
+        {
+            var sb = new System.Text.StringBuilder();
+            foreach (var sprite in selectedSprites)
+            {
+                sb.Append(sprite.ImageName);
+                sb.Append(", ");
+            }
+            labelSprite.Text = sb.ToString();
+        }
+
         var offset = new CocosTools.AtlasData.Offset();
         var data = currentProject.GetAtlasDataAt(listAtlas.SelectedIndex);
         if (null != data && null != data.Offsets && data.Offsets.ContainsKey(selectedSprite.ImageName))
@@ -189,6 +251,7 @@ public partial class CocosToolsForm : Form
     {
         if (null == currentProject || null == sprites)
             return;
+
         var dlg = new SaveFileDialog();
         dlg.Filter = "png, plist files|*png, *plist";
         dlg.ShowDialog();
@@ -217,40 +280,42 @@ public partial class CocosToolsForm : Form
 
     private void offsetX_ValueChanged(object sender, EventArgs e)
     {
-        if (null != selectedSprite)
-        {
-            selectedSprite.OffsetX = (int)numOffsetX.Value;
-            SetOffset();
-            ShowSelectedSprite();
-        }
+        SetOffset();
+        ShowSelectedSprite();
     }
 
     private void offsetY_ValueChanged(object sender, EventArgs e)
     {
-        if (null != selectedSprite)
-        {
-            selectedSprite.OffsetY = (int)numOffsetY.Value;
-            SetOffset();
-            ShowSelectedSprite();
-        }
+        SetOffset();
+        ShowSelectedSprite();
     }
 
     private void SetOffset()
     {
-        if (null == packer || null == currentProject || null == selectedSprite)
+        if (null == packer || null == currentProject)
             return;
+
         var data = currentProject.GetAtlasDataAt(listAtlas.SelectedIndex);
         if (null == data)
             return;
-        if (null == data.Offsets)
-            data.Offsets = new Dictionary<string, CocosTools.AtlasData.Offset>();
-        if (!data.Offsets.ContainsKey(selectedSprite.ImageName))
-            data.Offsets.Add(selectedSprite.ImageName, new CocosTools.AtlasData.Offset());
-        data.Offsets[selectedSprite.ImageName].X = (int)numOffsetX.Value;
-        data.Offsets[selectedSprite.ImageName].Y = (int)numOffsetY.Value;
 
-        if (numOffsetX.Value == 0 && numOffsetY.Value == 0)
-            data.Offsets.Remove(selectedSprite.ImageName);
+        foreach (var sprite in selectedSprites)
+        {
+            sprite.OffsetX = (int)numOffsetX.Value;
+            sprite.OffsetY = (int)numOffsetY.Value;
+
+            if (null == data.Offsets)
+                data.Offsets = new Dictionary<string, CocosTools.AtlasData.Offset>();
+
+            if (!data.Offsets.ContainsKey(sprite.ImageName))
+                data.Offsets.Add(sprite.ImageName, new CocosTools.AtlasData.Offset());
+
+            data.Offsets[sprite.ImageName].X = (int)numOffsetX.Value;
+            data.Offsets[sprite.ImageName].Y = (int)numOffsetY.Value;
+
+            if (numOffsetX.Value == 0 && numOffsetY.Value == 0)
+                data.Offsets.Remove(sprite.ImageName);
+        }
     }
 
     private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -303,7 +368,7 @@ public partial class CocosToolsForm : Form
                 listAtlas.Items.Add(i);
         }
 
-        if (null == selectedSprite)
+        if (0 == selectedSprites.Count)
         {
             labelSprite.Text = "";
             numOffsetX.Value = 0;
@@ -335,10 +400,12 @@ public partial class CocosToolsForm : Form
         imgAtlas.Width = imgAtlas.Image.Width;
         imgAtlas.Height = imgAtlas.Image.Height;
         picktureBoxCenter();
-        selectedSprite = null;
 
         numPadding.Value = data.Padding;
         checkBoxCopyBorder.Checked = data.CopyBorder;
+
+        selectedSprites.Clear();
+        ShowSelectedSprite();
     }
 
     private void DeleteSelectedAtlas()
