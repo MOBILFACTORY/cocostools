@@ -10,8 +10,12 @@ public partial class AnimationForm : Form
     public AnimationForm()
     {
         InitializeComponent();
-        btnPause.Enabled = false;
-        btnStop.Enabled = false;
+
+        //btnMovePrev.Enabled = false;
+        //btnMoveNext.Enabled = false;
+        //btnDeleteFrame.Enabled = false;
+        //btnCopyFrame.Enabled = false;
+
         btnAddAnimation.Enabled = false;
         btnRemoveAnimation.Enabled = false;
     }
@@ -142,31 +146,25 @@ public partial class AnimationForm : Form
             FromForm();
     }
 
-    private void btnPlay_Click(object sender, EventArgs e)
-    {
-    }
-
-    private void btnPause_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    private void btnStop_Click(object sender, EventArgs e)
-    {
-
-    }
-
     // control end ---------------------------------------
 
     public void UpdateList()
     {
         listDir.Items.Clear();
         foreach (var dir in allDir)
+        {
+            if (!dir.Contains(txtFilter.Text))
+                continue;
+
             listDir.Items.Add(dir);
+        }
 
         listAnimation.Items.Clear();
         foreach (var anim in currentProject.Animations)
         {
+            if (!anim.name.Contains(txtFilter.Text))
+                continue;
+
             listAnimation.Items.Add(anim);
             listDir.Items.Remove(anim.name);
         }
@@ -217,7 +215,12 @@ public partial class AnimationForm : Form
 
         label1.Focus();
         checkBoxLoop.Checked = false;
-        var ani = currentProject.GetAnimationAt(listAnimation.SelectedIndex);
+
+        if (listAnimation.SelectedItems.Count == 0)
+            return;
+
+        var item = listAnimation.SelectedItems[0];
+        var ani = currentProject.FindAnimation(item.ToString());
         if (null == ani)
         {
             labelName.Text = "";
@@ -270,7 +273,15 @@ public partial class AnimationForm : Form
             ani.name = name;
 
             var files = System.IO.Directory.GetFiles(currentProject.MakeAbsolutePath(name));
-            foreach (var file in files)
+            var filesList = new List<string>(files);
+            filesList.Sort((a, b) => {
+                var aname = System.IO.Path.GetFileNameWithoutExtension(a);
+                var anum = int.Parse(aname);
+                var bname = System.IO.Path.GetFileNameWithoutExtension(b);
+                var bnum = int.Parse(bname);
+                return anum.CompareTo(bnum);
+            });
+            foreach (var file in filesList)
             {
                 var filename = System.IO.Path.GetFileName(file);
                 ani.Frames.Add(name + "/" + filename);
@@ -287,6 +298,86 @@ public partial class AnimationForm : Form
             currentProject.RemoveAnimation((CocosTools.Animation)item);
 
         UpdateList();
+        ToForm();
+    }
+
+    private void txtFilter_TextChanged(object sender, EventArgs e)
+    {
+        UpdateList();
+    }
+
+    private void btnMovePrev_Click(object sender, EventArgs e)
+    {
+        if (listFrames.SelectedIndices.Count != 1)
+            return;
+
+        int idx = listFrames.SelectedIndices[0];
+        if (idx == 0)
+            return;
+
+        var item = listAnimation.SelectedItems[0];
+        var ani = currentProject.FindAnimation(item.ToString());
+        if (null == ani)
+            return;
+
+        var selected = ani.Frames[idx];
+        ani.Frames.RemoveAt(idx);
+        ani.Frames.Insert(idx - 1, selected);
+
+        ToForm();
+    }
+
+    private void btnMoveNext_Click(object sender, EventArgs e)
+    {
+        if (listFrames.SelectedIndices.Count != 1)
+            return;
+
+        int idx = listFrames.SelectedIndices[0];
+        if (idx == listFrames.Items.Count - 1)
+            return;
+
+        var item = listAnimation.SelectedItems[0];
+        var ani = currentProject.FindAnimation(item.ToString());
+        if (null == ani)
+            return;
+
+        var selected = ani.Frames[idx];
+        ani.Frames.RemoveAt(idx);
+        ani.Frames.Insert(idx + 1, selected);
+
+        ToForm();
+    }
+
+    private void btnCopyFrame_Click(object sender, EventArgs e)
+    {
+        if (listFrames.SelectedIndices.Count != 1)
+            return;
+
+        int idx = listFrames.SelectedIndices[0];
+        var item = listAnimation.SelectedItems[0];
+        var ani = currentProject.FindAnimation(item.ToString());
+        if (null == ani)
+            return;
+
+        var selected = ani.Frames[idx];
+        ani.Frames.Insert(idx + 1, selected);
+
+        ToForm();
+    }
+
+    private void btnDeleteFrame_Click(object sender, EventArgs e)
+    {
+        if (listFrames.SelectedIndices.Count != 1)
+            return;
+
+        int idx = listFrames.SelectedIndices[0];
+        var item = listAnimation.SelectedItems[0];
+        var ani = currentProject.FindAnimation(item.ToString());
+        if (null == ani)
+            return;
+        
+        ani.Frames.RemoveAt(idx);
+
         ToForm();
     }
 

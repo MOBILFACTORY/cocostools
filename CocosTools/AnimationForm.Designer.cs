@@ -29,12 +29,9 @@ partial class AnimationForm
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnimationForm));
             this.btnAddAnimation = new System.Windows.Forms.Button();
-            this.btnPause = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
             this.listAnimation = new System.Windows.Forms.ListBox();
             this.btnExport = new System.Windows.Forms.Button();
-            this.btnPlay = new System.Windows.Forms.Button();
-            this.imgSpriteFrame = new System.Windows.Forms.PictureBox();
+            this.btnMovePrev = new System.Windows.Forms.Button();
             this.listFrames = new System.Windows.Forms.ListView();
             this.checkBoxRestoreOriginalFrame = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,7 +44,11 @@ partial class AnimationForm
             this.label4 = new System.Windows.Forms.Label();
             this.txtLoops = new System.Windows.Forms.TextBox();
             this.checkBoxLoop = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.imgSpriteFrame)).BeginInit();
+            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnMoveNext = new System.Windows.Forms.Button();
+            this.btnCopyFrame = new System.Windows.Forms.Button();
+            this.btnDeleteFrame = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddAnimation
@@ -64,36 +65,6 @@ partial class AnimationForm
             this.btnAddAnimation.Text = ">>\r\nAdd";
             this.btnAddAnimation.UseVisualStyleBackColor = false;
             this.btnAddAnimation.Click += new System.EventHandler(this.btnAddAnimation_Click);
-            // 
-            // btnPause
-            // 
-            this.btnPause.BackColor = System.Drawing.Color.Gray;
-            this.btnPause.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPause.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnPause.ForeColor = System.Drawing.Color.White;
-            this.btnPause.Location = new System.Drawing.Point(669, 426);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(75, 23);
-            this.btnPause.TabIndex = 1;
-            this.btnPause.Text = "PAUSE";
-            this.btnPause.UseVisualStyleBackColor = false;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.BackColor = System.Drawing.Color.Gray;
-            this.btnStop.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStop.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnStop.ForeColor = System.Drawing.Color.White;
-            this.btnStop.Location = new System.Drawing.Point(758, 426);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
-            this.btnStop.TabIndex = 2;
-            this.btnStop.Text = "STOP";
-            this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // listAnimation
             // 
@@ -125,28 +96,20 @@ partial class AnimationForm
             this.btnExport.UseVisualStyleBackColor = false;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // btnPlay
+            // btnMovePrev
             // 
-            this.btnPlay.BackColor = System.Drawing.Color.Gray;
-            this.btnPlay.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlay.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnPlay.ForeColor = System.Drawing.Color.White;
-            this.btnPlay.Location = new System.Drawing.Point(588, 426);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(75, 23);
-            this.btnPlay.TabIndex = 4;
-            this.btnPlay.Text = "PLAY";
-            this.btnPlay.UseVisualStyleBackColor = false;
-            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
-            // 
-            // imgSpriteFrame
-            // 
-            this.imgSpriteFrame.Location = new System.Drawing.Point(12, 457);
-            this.imgSpriteFrame.Name = "imgSpriteFrame";
-            this.imgSpriteFrame.Size = new System.Drawing.Size(103, 93);
-            this.imgSpriteFrame.TabIndex = 9;
-            this.imgSpriteFrame.TabStop = false;
+            this.btnMovePrev.BackColor = System.Drawing.Color.Gray;
+            this.btnMovePrev.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnMovePrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMovePrev.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnMovePrev.ForeColor = System.Drawing.Color.White;
+            this.btnMovePrev.Location = new System.Drawing.Point(637, 428);
+            this.btnMovePrev.Name = "btnMovePrev";
+            this.btnMovePrev.Size = new System.Drawing.Size(52, 23);
+            this.btnMovePrev.TabIndex = 4;
+            this.btnMovePrev.Text = "<<";
+            this.btnMovePrev.UseVisualStyleBackColor = false;
+            this.btnMovePrev.Click += new System.EventHandler(this.btnMovePrev_Click);
             // 
             // listFrames
             // 
@@ -292,12 +255,83 @@ partial class AnimationForm
             this.checkBoxLoop.UseVisualStyleBackColor = true;
             this.checkBoxLoop.CheckedChanged += new System.EventHandler(this.checkBoxLoop_CheckedChanged);
             // 
+            // txtFilter
+            // 
+            this.txtFilter.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtFilter.Location = new System.Drawing.Point(614, 378);
+            this.txtFilter.MaxLength = 5;
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(219, 23);
+            this.txtFilter.TabIndex = 24;
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(556, 382);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 15);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Filter";
+            // 
+            // btnMoveNext
+            // 
+            this.btnMoveNext.BackColor = System.Drawing.Color.Gray;
+            this.btnMoveNext.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnMoveNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMoveNext.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnMoveNext.ForeColor = System.Drawing.Color.White;
+            this.btnMoveNext.Location = new System.Drawing.Point(695, 428);
+            this.btnMoveNext.Name = "btnMoveNext";
+            this.btnMoveNext.Size = new System.Drawing.Size(52, 23);
+            this.btnMoveNext.TabIndex = 26;
+            this.btnMoveNext.Text = ">>";
+            this.btnMoveNext.UseVisualStyleBackColor = false;
+            this.btnMoveNext.Click += new System.EventHandler(this.btnMoveNext_Click);
+            // 
+            // btnCopyFrame
+            // 
+            this.btnCopyFrame.BackColor = System.Drawing.Color.Gray;
+            this.btnCopyFrame.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnCopyFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCopyFrame.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnCopyFrame.ForeColor = System.Drawing.Color.White;
+            this.btnCopyFrame.Location = new System.Drawing.Point(770, 428);
+            this.btnCopyFrame.Name = "btnCopyFrame";
+            this.btnCopyFrame.Size = new System.Drawing.Size(52, 23);
+            this.btnCopyFrame.TabIndex = 27;
+            this.btnCopyFrame.Text = "COPY";
+            this.btnCopyFrame.UseVisualStyleBackColor = false;
+            this.btnCopyFrame.Click += new System.EventHandler(this.btnCopyFrame_Click);
+            // 
+            // btnDeleteFrame
+            // 
+            this.btnDeleteFrame.BackColor = System.Drawing.Color.Gray;
+            this.btnDeleteFrame.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnDeleteFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteFrame.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnDeleteFrame.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteFrame.Location = new System.Drawing.Point(828, 428);
+            this.btnDeleteFrame.Name = "btnDeleteFrame";
+            this.btnDeleteFrame.Size = new System.Drawing.Size(52, 23);
+            this.btnDeleteFrame.TabIndex = 28;
+            this.btnDeleteFrame.Text = "DEL";
+            this.btnDeleteFrame.UseVisualStyleBackColor = false;
+            this.btnDeleteFrame.Click += new System.EventHandler(this.btnDeleteFrame_Click);
+            // 
             // AnimationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(1008, 562);
+            this.Controls.Add(this.btnDeleteFrame);
+            this.Controls.Add(this.btnCopyFrame);
+            this.Controls.Add(this.btnMoveNext);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtFilter);
             this.Controls.Add(this.checkBoxLoop);
             this.Controls.Add(this.txtLoops);
             this.Controls.Add(this.label4);
@@ -312,15 +346,11 @@ partial class AnimationForm
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxRestoreOriginalFrame);
-            this.Controls.Add(this.imgSpriteFrame);
             this.Controls.Add(this.listFrames);
-            this.Controls.Add(this.btnPlay);
-            this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.btnPause);
+            this.Controls.Add(this.btnMovePrev);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnimationForm";
             this.Text = "Animation";
-            ((System.ComponentModel.ISupportInitialize)(this.imgSpriteFrame)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -329,12 +359,9 @@ partial class AnimationForm
     #endregion
 
     private System.Windows.Forms.Button btnAddAnimation;
-    private System.Windows.Forms.Button btnPause;
-    private System.Windows.Forms.Button btnStop;
     private System.Windows.Forms.ListBox listAnimation;
-    private System.Windows.Forms.Button btnPlay;
+    private System.Windows.Forms.Button btnMovePrev;
     private System.Windows.Forms.Button btnExport;
-    private System.Windows.Forms.PictureBox imgSpriteFrame;
     private System.Windows.Forms.ListView listFrames;
     private System.Windows.Forms.CheckBox checkBoxRestoreOriginalFrame;
     private System.Windows.Forms.Label label1;
@@ -347,4 +374,9 @@ partial class AnimationForm
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.TextBox txtLoops;
     private System.Windows.Forms.CheckBox checkBoxLoop;
+    private System.Windows.Forms.TextBox txtFilter;
+    private System.Windows.Forms.Label label5;
+    private System.Windows.Forms.Button btnMoveNext;
+    private System.Windows.Forms.Button btnCopyFrame;
+    private System.Windows.Forms.Button btnDeleteFrame;
 }
