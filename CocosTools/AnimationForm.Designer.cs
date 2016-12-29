@@ -259,7 +259,7 @@ partial class AnimationForm
             // 
             this.txtFilter.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtFilter.Location = new System.Drawing.Point(614, 378);
-            this.txtFilter.MaxLength = 5;
+            this.txtFilter.MaxLength = 0;
             this.txtFilter.Name = "txtFilter";
             this.txtFilter.Size = new System.Drawing.Size(219, 23);
             this.txtFilter.TabIndex = 24;
