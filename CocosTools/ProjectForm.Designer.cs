@@ -54,6 +54,7 @@ partial class CocosToolsForm
             this.menuItemView = new System.Windows.Forms.ToolStripMenuItem();
             this.atlasListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.encryptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -203,7 +204,10 @@ partial class CocosToolsForm
             this.imgAtlas.Size = new System.Drawing.Size(200, 200);
             this.imgAtlas.TabIndex = 0;
             this.imgAtlas.TabStop = false;
+            this.imgAtlas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.imgAtlas_MouseClick);
             this.imgAtlas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.imgAtlas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imgAtlas_MouseMove);
+            this.imgAtlas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imgAtlas_MouseUp);
             // 
             // imgAnchor
             // 
@@ -366,7 +370,8 @@ partial class CocosToolsForm
             // 
             this.menuItemView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.atlasListToolStripMenuItem,
-            this.fontsToolStripMenuItem});
+            this.fontsToolStripMenuItem,
+            this.encryptToolStripMenuItem});
             this.menuItemView.Name = "menuItemView";
             this.menuItemView.Size = new System.Drawing.Size(47, 20);
             this.menuItemView.Text = "VIEW";
@@ -384,6 +389,13 @@ partial class CocosToolsForm
             this.fontsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fontsToolStripMenuItem.Text = "Fonts";
             this.fontsToolStripMenuItem.Click += new System.EventHandler(this.fontsToolStripMenuItem_Click);
+            // 
+            // encryptToolStripMenuItem
+            // 
+            this.encryptToolStripMenuItem.Name = "encryptToolStripMenuItem";
+            this.encryptToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.encryptToolStripMenuItem.Text = "Encrypt";
+            this.encryptToolStripMenuItem.Click += new System.EventHandler(this.encryptToolStripMenuItem_Click);
             // 
             // CocosToolsForm
             // 
@@ -442,11 +454,12 @@ partial class CocosToolsForm
     private System.Windows.Forms.ToolStripMenuItem newProjectToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
-    private System.Windows.Forms.ToolStripMenuItem atlasListToolStripMenuItem;
     private System.Windows.Forms.CheckBox checkBoxCopyBorder;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.NumericUpDown numPadding;
     private System.Windows.Forms.PictureBox imgAnchor;
     private System.Windows.Forms.ToolStripMenuItem fontsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem atlasListToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem encryptToolStripMenuItem;
 }
 

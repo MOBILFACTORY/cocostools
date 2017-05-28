@@ -129,50 +129,6 @@ public partial class CocosToolsForm : Form
         }
     }
 
-    private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-    {
-        if (null == currentProject)
-            return;
-
-        selectedSprites.Clear();
-        if (null != sprites)
-        {
-            foreach (var sprite in sprites)
-            {
-                if (sprite.Rect.x < e.Location.X && sprite.Rect.x + sprite.Rect.w > e.Location.X
-                    && sprite.Rect.y < e.Location.Y && sprite.Rect.y + sprite.Rect.h > e.Location.Y)
-                {
-                    selectedSprites.Add(sprite);
-                    ShowSelectedSprite();
-                    break;
-                }
-            }
-        }
-
-        if (selectedSprites.Count > 0 && e.Button == MouseButtons.Right)
-        {
-            // 폴더 만큼 메뉴 생성
-            var paths = selectedSprites[0].ImageName.Split('/');
-            int len = paths.Length - 1;
-            var cm = new ContextMenu();
-            for (int i = 0; i < len; ++i)
-            {
-                var sb = new System.Text.StringBuilder();
-                for (int j = 0; j < i + 1; ++j)
-                {
-                    sb.Append(paths[j]);
-                    sb.Append("/");
-                }
-
-                if (i == 0)
-                    cm.MenuItems.Add("SelectAll", new EventHandler(AutoSelectSprite));
-                else
-                    cm.MenuItems.Add(string.Format("Select: {0}", sb.ToString()), new EventHandler(AutoSelectSprite));
-            }
-            imgAtlas.ContextMenu = cm;
-        }
-    }
-
     private void AutoSelectSprite(object sender, EventArgs e)
     {
         var menuItem = sender as MenuItem;
@@ -506,5 +462,78 @@ public partial class CocosToolsForm : Form
             list.Add(basepath);
         }
         return list;
+    }
+    
+    private Point _mouseDownLocation;
+    private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+    {
+        if (null == currentProject)
+            return;
+        
+        _mouseDownLocation = e.Location;
+    }
+
+    private void imgAtlas_MouseMove(object sender, MouseEventArgs e)
+    {
+    }
+
+    private void imgAtlas_MouseUp(object sender, MouseEventArgs e)
+    {
+        if (null == currentProject)
+            return;
+
+        var x = imgAtlas.Location.X - (_mouseDownLocation.X - e.Location.X);
+        var y = imgAtlas.Location.Y - (_mouseDownLocation.Y - e.Location.Y);
+        imgAtlas.Location = new Point(x, y);
+    }
+
+    private void imgAtlas_MouseClick(object sender, MouseEventArgs e)
+    {
+        if (null == currentProject)
+            return;
+
+        selectedSprites.Clear();
+        if (null != sprites)
+        {
+            foreach (var sprite in sprites)
+            {
+                if (sprite.Rect.x < e.Location.X && sprite.Rect.x + sprite.Rect.w > e.Location.X
+                    && sprite.Rect.y < e.Location.Y && sprite.Rect.y + sprite.Rect.h > e.Location.Y)
+                {
+                    selectedSprites.Add(sprite);
+                    ShowSelectedSprite();
+                    break;
+                }
+            }
+        }
+
+        if (selectedSprites.Count > 0 && e.Button == MouseButtons.Right)
+        {
+            // 폴더 만큼 메뉴 생성
+            var paths = selectedSprites[0].ImageName.Split('/');
+            int len = paths.Length - 1;
+            var cm = new ContextMenu();
+            for (int i = 0; i < len; ++i)
+            {
+                var sb = new System.Text.StringBuilder();
+                for (int j = 0; j < i + 1; ++j)
+                {
+                    sb.Append(paths[j]);
+                    sb.Append("/");
+                }
+
+                if (i == 0)
+                    cm.MenuItems.Add("SelectAll", new EventHandler(AutoSelectSprite));
+                else
+                    cm.MenuItems.Add(string.Format("Select: {0}", sb.ToString()), new EventHandler(AutoSelectSprite));
+            }
+            imgAtlas.ContextMenu = cm;
+        }
+    }
+
+    private void encryptToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var form = new CocosTools.EncryptForm();
+        form.Show();
     }
 }

@@ -79,6 +79,12 @@
     <Compile Include="Atlas\Packer.cs" />
     <Compile Include="Atlas\Sprite.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="EncryptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncryptForm.Designer.cs">
+      <DependentUpon>EncryptForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FontForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AnimationForm.resx">
       <DependentUpon>AnimationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncryptForm.resx">
+      <DependentUpon>EncryptForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FontForm.resx">
       <DependentUpon>FontForm.cs</DependentUpon>
