@@ -54,10 +54,20 @@ namespace CocosTools
             foreach (var item in listBox1.Items)
             {
                 var path = (string)item;
+                var dir = System.IO.Path.GetDirectoryName(path);
+                var idx = dir.LastIndexOf("\\");
+                var newpath = dir.Substring(0, idx + 1);
+                var oldname = dir.Substring(idx + 1);
+                var filename = System.IO.Path.GetFileName(path);
+                newpath += "encrypt_" + oldname;
                 var reader = System.IO.File.OpenText(path);
                 var res = EncryptOrDecrypt(reader.ReadToEnd(), textBox1.Text);
                 reader.Close();
-                System.IO.File.WriteAllText(path, res);
+
+                if (!System.IO.Directory.Exists(newpath))
+                    System.IO.Directory.CreateDirectory(newpath);
+
+                System.IO.File.WriteAllText(System.IO.Path.Combine(newpath, filename), res);
             }
         }
 
