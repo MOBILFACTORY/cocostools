@@ -10,9 +10,22 @@ namespace CocosTools
 {
     public partial class EncryptForm : Form
     {
+        private Project currentProject;
+
         public EncryptForm()
         {
             InitializeComponent();
+        }
+
+        public void SetProject(Project proj)
+        {
+            if (null == proj)
+                Close();
+
+            currentProject = proj;
+
+            if (currentProject.EncryptKey != null)
+                textBox1.Text = currentProject.EncryptKey;
         }
 
         private void EncryptForm_DragEnter(object sender, DragEventArgs e)
@@ -51,13 +64,17 @@ namespace CocosTools
 
         private void button1_Click(object sender, EventArgs e)
         {
+            currentProject.EncryptKey = textBox1.Text;
+
             foreach (var item in listBox1.Items)
             {
                 var path = (string)item;
                 var reader = System.IO.File.OpenText(path);
                 var res = EncryptOrDecrypt(reader.ReadToEnd(), textBox1.Text);
                 reader.Close();
-                System.IO.File.WriteAllText(path, res);
+
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(res))
+                    System.IO.File.WriteAllText(path, res);
             }
         }
 

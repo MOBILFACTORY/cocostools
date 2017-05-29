@@ -25,6 +25,7 @@ namespace CocosTools
         
         public List<AtlasData> Atlas { get; set; }
         public List<Animation> Animations { get; set; }
+        public string EncryptKey { get; set; }
         
         private string path = "";
 

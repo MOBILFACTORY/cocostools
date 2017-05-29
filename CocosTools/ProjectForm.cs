@@ -535,5 +535,6 @@ public partial class CocosToolsForm : Form
     {
         var form = new CocosTools.EncryptForm();
         form.Show();
+        form.SetProject(currentProject);
     }
 }
