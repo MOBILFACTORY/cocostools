@@ -41,7 +41,6 @@ partial class CocosToolsForm
             this.label4 = new System.Windows.Forms.Label();
             this.numPadding = new System.Windows.Forms.NumericUpDown();
             this.imgSprite = new System.Windows.Forms.PictureBox();
-            this.labelSprite = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numOffsetY = new System.Windows.Forms.NumericUpDown();
@@ -55,6 +54,10 @@ partial class CocosToolsForm
             this.atlasListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encryptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.alliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enemiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listSprites = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -111,12 +114,12 @@ partial class CocosToolsForm
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.splitContainer1.Panel2.Controls.Add(this.listSprites);
             this.splitContainer1.Panel2.Controls.Add(this.imgAnchor);
             this.splitContainer1.Panel2.Controls.Add(this.checkBoxCopyBorder);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.numPadding);
             this.splitContainer1.Panel2.Controls.Add(this.imgSprite);
-            this.splitContainer1.Panel2.Controls.Add(this.labelSprite);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.numOffsetY);
@@ -256,23 +259,11 @@ partial class CocosToolsForm
             // 
             // imgSprite
             // 
-            this.imgSprite.Location = new System.Drawing.Point(17, 184);
+            this.imgSprite.Location = new System.Drawing.Point(17, 115);
             this.imgSprite.Name = "imgSprite";
-            this.imgSprite.Size = new System.Drawing.Size(145, 73);
+            this.imgSprite.Size = new System.Drawing.Size(145, 142);
             this.imgSprite.TabIndex = 7;
             this.imgSprite.TabStop = false;
-            // 
-            // labelSprite
-            // 
-            this.labelSprite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelSprite.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.labelSprite.ForeColor = System.Drawing.Color.White;
-            this.labelSprite.Location = new System.Drawing.Point(14, 323);
-            this.labelSprite.Name = "labelSprite";
-            this.labelSprite.Size = new System.Drawing.Size(148, 81);
-            this.labelSprite.TabIndex = 6;
-            this.labelSprite.Text = "Sprite";
-            this.labelSprite.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // label3
             // 
@@ -371,7 +362,10 @@ partial class CocosToolsForm
             this.menuItemView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.atlasListToolStripMenuItem,
             this.fontsToolStripMenuItem,
-            this.encryptToolStripMenuItem});
+            this.encryptToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.alliesToolStripMenuItem,
+            this.enemiesToolStripMenuItem});
             this.menuItemView.Name = "menuItemView";
             this.menuItemView.Size = new System.Drawing.Size(47, 20);
             this.menuItemView.Text = "VIEW";
@@ -379,23 +373,52 @@ partial class CocosToolsForm
             // atlasListToolStripMenuItem
             // 
             this.atlasListToolStripMenuItem.Name = "atlasListToolStripMenuItem";
-            this.atlasListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.atlasListToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.atlasListToolStripMenuItem.Text = "Animations";
             this.atlasListToolStripMenuItem.Click += new System.EventHandler(this.atlasListToolStripMenuItem_Click);
             // 
             // fontsToolStripMenuItem
             // 
             this.fontsToolStripMenuItem.Name = "fontsToolStripMenuItem";
-            this.fontsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fontsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.fontsToolStripMenuItem.Text = "Fonts";
             this.fontsToolStripMenuItem.Click += new System.EventHandler(this.fontsToolStripMenuItem_Click);
             // 
             // encryptToolStripMenuItem
             // 
             this.encryptToolStripMenuItem.Name = "encryptToolStripMenuItem";
-            this.encryptToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.encryptToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.encryptToolStripMenuItem.Text = "Encrypt";
             this.encryptToolStripMenuItem.Click += new System.EventHandler(this.encryptToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
+            // 
+            // alliesToolStripMenuItem
+            // 
+            this.alliesToolStripMenuItem.Name = "alliesToolStripMenuItem";
+            this.alliesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.alliesToolStripMenuItem.Text = "Allies";
+            this.alliesToolStripMenuItem.Click += new System.EventHandler(this.alliesToolStripMenuItem_Click);
+            // 
+            // enemiesToolStripMenuItem
+            // 
+            this.enemiesToolStripMenuItem.Name = "enemiesToolStripMenuItem";
+            this.enemiesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.enemiesToolStripMenuItem.Text = "Enemies";
+            this.enemiesToolStripMenuItem.Click += new System.EventHandler(this.enemiesToolStripMenuItem_Click);
+            // 
+            // listSprites
+            // 
+            this.listSprites.FormattingEnabled = true;
+            this.listSprites.ItemHeight = 12;
+            this.listSprites.Location = new System.Drawing.Point(18, 332);
+            this.listSprites.Name = "listSprites";
+            this.listSprites.Size = new System.Drawing.Size(144, 88);
+            this.listSprites.TabIndex = 13;
+            this.listSprites.SelectedIndexChanged += new System.EventHandler(this.listSprites_SelectedIndexChanged);
             // 
             // CocosToolsForm
             // 
@@ -433,8 +456,6 @@ partial class CocosToolsForm
     }
 
     #endregion
-
-    private CocosTools.Atlas.BitmapBox imgAtlas;
     private System.Windows.Forms.Button button1;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.SplitContainer splitContainer1;
@@ -442,7 +463,6 @@ partial class CocosToolsForm
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.NumericUpDown numOffsetY;
     private System.Windows.Forms.NumericUpDown numOffsetX;
-    private System.Windows.Forms.Label labelSprite;
     private System.Windows.Forms.PictureBox imgSprite;
     private System.Windows.Forms.ListBox listAtlas;
     private System.Windows.Forms.TableLayoutPanel tableAtlasList;
@@ -459,7 +479,12 @@ partial class CocosToolsForm
     private System.Windows.Forms.NumericUpDown numPadding;
     private System.Windows.Forms.PictureBox imgAnchor;
     private System.Windows.Forms.ToolStripMenuItem fontsToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem atlasListToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem encryptToolStripMenuItem;
+    private CocosTools.Atlas.BitmapBox imgAtlas;
+    private System.Windows.Forms.ToolStripMenuItem atlasListToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+    private System.Windows.Forms.ToolStripMenuItem alliesToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem enemiesToolStripMenuItem;
+    private System.Windows.Forms.ListBox listSprites;
 }
 

@@ -131,6 +131,8 @@ public partial class CocosToolsForm : Form
 
     private void AutoSelectSprite(object sender, EventArgs e)
     {
+        selectedSprites.Clear();
+
         var menuItem = sender as MenuItem;
         var paths = menuItem.Text.Split(' ');
         if (paths.Length == 1)
@@ -145,9 +147,21 @@ public partial class CocosToolsForm : Form
             foreach (var sprite in sprites)
             {
                 if (sprite.ImageName.Contains(path))
+                {
                     selectedSprites.Add(sprite);
+                }
             }
         }
+
+        selectedSprites.Sort((CocosTools.Atlas.Sprite a, CocosTools.Atlas.Sprite b) =>
+        {
+            return a.ImageName.CompareTo(b.ImageName);
+        });
+
+        listSprites.Items.Clear();
+        foreach (var sprite in selectedSprites)
+            listSprites.Items.Add(sprite.ImageName);
+
         ShowSelectedSprite();
     }
 
@@ -157,20 +171,8 @@ public partial class CocosToolsForm : Form
             return;
 
         var selectedSprite = selectedSprites[0];
-        if (1 == selectedSprites.Count)
-        {
-            labelSprite.Text = selectedSprite.ImageName;
-        }
-        else
-        {
-            var sb = new System.Text.StringBuilder();
-            foreach (var sprite in selectedSprites)
-            {
-                sb.Append(sprite.ImageName);
-                sb.Append(", ");
-            }
-            labelSprite.Text = sb.ToString();
-        }
+        if (listSprites.SelectedIndex >= 0)
+            selectedSprite = selectedSprites[listSprites.SelectedIndex];
 
         var offset = new CocosTools.AtlasData.Offset();
         var data = currentProject.GetAtlasDataAt(listAtlas.SelectedIndex);
@@ -326,7 +328,7 @@ public partial class CocosToolsForm : Form
 
         if (0 == selectedSprites.Count)
         {
-            labelSprite.Text = "";
+            listSprites.Items.Clear();
             numOffsetX.Value = 0;
             numOffsetY.Value = 0;
             imgSprite.Image = null;
@@ -492,7 +494,10 @@ public partial class CocosToolsForm : Form
         if (null == currentProject)
             return;
 
+        CocosTools.Atlas.Sprite clickedSprite = null;
+
         selectedSprites.Clear();
+        listSprites.Items.Clear();
         if (null != sprites)
         {
             foreach (var sprite in sprites)
@@ -500,20 +505,22 @@ public partial class CocosToolsForm : Form
                 if (sprite.Rect.x < e.Location.X && sprite.Rect.x + sprite.Rect.w > e.Location.X
                     && sprite.Rect.y < e.Location.Y && sprite.Rect.y + sprite.Rect.h > e.Location.Y)
                 {
+                    clickedSprite = sprite;
                     selectedSprites.Add(sprite);
+                    listSprites.Items.Add(sprite.ImageName);
                     ShowSelectedSprite();
                     break;
                 }
             }
         }
 
-        if (selectedSprites.Count > 0 && e.Button == MouseButtons.Right)
+        if (clickedSprite != null && e.Button == MouseButtons.Right)
         {
             // 폴더 만큼 메뉴 생성
-            var paths = selectedSprites[0].ImageName.Split('/');
+            var paths = clickedSprite.ImageName.Split('/');
             int len = paths.Length - 1;
             var cm = new ContextMenu();
-            for (int i = 0; i < len; ++i)
+            for (int i = 1; i < len; ++i)
             {
                 var sb = new System.Text.StringBuilder();
                 for (int j = 0; j < i + 1; ++j)
@@ -521,11 +528,8 @@ public partial class CocosToolsForm : Form
                     sb.Append(paths[j]);
                     sb.Append("/");
                 }
-
-                if (i == 0)
-                    cm.MenuItems.Add("SelectAll", new EventHandler(AutoSelectSprite));
-                else
-                    cm.MenuItems.Add(string.Format("Select: {0}", sb.ToString()), new EventHandler(AutoSelectSprite));
+                
+                cm.MenuItems.Add(string.Format("Select: {0}", sb.ToString()), new EventHandler(AutoSelectSprite));
             }
             imgAtlas.ContextMenu = cm;
         }
@@ -536,5 +540,24 @@ public partial class CocosToolsForm : Form
         var form = new CocosTools.EncryptForm();
         form.Show();
         form.SetProject(currentProject);
+    }
+
+    private void alliesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var form = new CocosTools.AllyForm();
+        form.Show();
+        form.SetProject(currentProject);
+    }
+
+    private void enemiesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var form = new CocosTools.EnemyForm();
+        form.Show();
+        form.SetProject(currentProject);
+    }
+
+    private void listSprites_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ShowSelectedSprite();
     }
 }
