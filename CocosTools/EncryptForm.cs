@@ -15,6 +15,8 @@ namespace CocosTools
         public EncryptForm()
         {
             InitializeComponent();
+
+            button1.Enabled = false;
         }
 
         public void SetProject(Project proj)
@@ -94,6 +96,70 @@ namespace CocosTools
                 result.Append((char)((uint)text[c] ^ (uint)key[c % key.Length]));
 
             return result.ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            currentProject.EncryptKey = textBox1.Text;
+
+            var dlg = new SaveFileDialog();
+            dlg.Filter = "dat files (*dat)|*dat";
+            dlg.ShowDialog();
+            var savefile = dlg.FileName;
+            if (string.IsNullOrEmpty(savefile))
+                return;
+
+            if (!System.IO.Path.HasExtension(savefile))
+                savefile += ".dat";
+
+            //var savefile = "test.dat";
+                System.IO.FileStream fs = new System.IO.FileStream(savefile, System.IO.FileMode.Create);
+            foreach (var item in listBox1.Items)
+            {
+                var path = (string)item;
+                var ext = System.IO.Path.GetExtension(path);
+                if (ext == "png" || ext == "tsx")
+                    continue;
+
+                var dir = System.IO.Path.GetDirectoryName(path);
+                var idx = dir.LastIndexOf("\\");
+                var filename = path.Substring(idx + 1);
+                filename = filename.Replace("\\", "/");
+                
+                Byte[] nameBytes = System.Text.Encoding.UTF8.GetBytes(EncryptOrDecrypt(filename, currentProject.EncryptKey));
+                Byte[] nameLenBytes = BitConverter.GetBytes(nameBytes.Length);
+                fs.Write(nameLenBytes, 0, nameLenBytes.Length);
+                fs.Write(nameBytes, 0, nameBytes.Length);
+
+                var itemReader = System.IO.File.OpenText(path);
+                var itemStr = itemReader.ReadToEnd();
+                itemStr += "\r\n";
+                itemReader.Close();
+
+                Byte[] strBytes = System.Text.Encoding.UTF8.GetBytes(EncryptOrDecrypt(itemStr, currentProject.EncryptKey));
+                Byte[] strLenBytes = BitConverter.GetBytes(strBytes.Length);
+                fs.Write(strLenBytes, 0, strLenBytes.Length);
+                fs.Write(strBytes, 0, strBytes.Length);
+
+                // test
+                //fs.Position = 0;
+                //Byte[] readIntBytes = new Byte[4];
+                //fs.Read(readIntBytes, 0, 4);
+                //int readInt = BitConverter.ToInt16(readIntBytes, 0);
+                //Byte[] readStrBytes = new Byte[readInt];
+                //fs.Read(readStrBytes, 0, readInt);
+                //string readStr = System.Text.Encoding.UTF8.GetString(readStrBytes);
+                //Console.WriteLine(readStr);
+                
+                //Byte[] readIntBytes2 = new Byte[4];
+                //fs.Read(readIntBytes2, 0, 4);
+                //int readInt2 = BitConverter.ToInt16(readIntBytes2, 0);
+                //Byte[] readStrBytes2 = new Byte[readInt2];
+                //fs.Read(readStrBytes2, 0, readInt2);
+                //string readStr2 = System.Text.Encoding.UTF8.GetString(readStrBytes2);
+                //Console.WriteLine(readStr2);
+            }
+            fs.Close();
         }
     }
 }
