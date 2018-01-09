@@ -113,12 +113,12 @@ namespace CocosTools
                 savefile += ".dat";
 
             //var savefile = "test.dat";
-                System.IO.FileStream fs = new System.IO.FileStream(savefile, System.IO.FileMode.Create);
+            System.IO.FileStream fs = new System.IO.FileStream(savefile, System.IO.FileMode.Create);
             foreach (var item in listBox1.Items)
             {
                 var path = (string)item;
                 var ext = System.IO.Path.GetExtension(path);
-                if (ext == "png" || ext == "tsx")
+                if (ext == ".png")
                     continue;
 
                 var dir = System.IO.Path.GetDirectoryName(path);
@@ -160,6 +160,7 @@ namespace CocosTools
                 //Console.WriteLine(readStr2);
             }
             fs.Close();
+            MessageBox.Show("complete");
         }
     }
 }

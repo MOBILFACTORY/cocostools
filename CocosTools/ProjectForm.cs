@@ -560,4 +560,11 @@ public partial class CocosToolsForm : Form
     {
         ShowSelectedSprite();
     }
+
+    private void imageToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var form = new CocosTools.OffsetForm();
+        form.Show();
+        form.SetProject(currentProject);
+    }
 }

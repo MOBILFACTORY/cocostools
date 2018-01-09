@@ -36,6 +36,7 @@ partial class CocosToolsForm
             this.labelAtlas = new System.Windows.Forms.Label();
             this.btnAtlasAdd = new System.Windows.Forms.Button();
             this.imgAtlas = new CocosTools.Atlas.BitmapBox();
+            this.listSprites = new System.Windows.Forms.ListBox();
             this.imgAnchor = new System.Windows.Forms.PictureBox();
             this.checkBoxCopyBorder = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -54,10 +55,10 @@ partial class CocosToolsForm
             this.atlasListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encryptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.alliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enemiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listSprites = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -212,6 +213,16 @@ partial class CocosToolsForm
             this.imgAtlas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imgAtlas_MouseMove);
             this.imgAtlas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imgAtlas_MouseUp);
             // 
+            // listSprites
+            // 
+            this.listSprites.FormattingEnabled = true;
+            this.listSprites.ItemHeight = 12;
+            this.listSprites.Location = new System.Drawing.Point(18, 332);
+            this.listSprites.Name = "listSprites";
+            this.listSprites.Size = new System.Drawing.Size(144, 88);
+            this.listSprites.TabIndex = 13;
+            this.listSprites.SelectedIndexChanged += new System.EventHandler(this.listSprites_SelectedIndexChanged);
+            // 
             // imgAnchor
             // 
             this.imgAnchor.Image = ((System.Drawing.Image)(resources.GetObject("imgAnchor.Image")));
@@ -363,6 +374,7 @@ partial class CocosToolsForm
             this.atlasListToolStripMenuItem,
             this.fontsToolStripMenuItem,
             this.encryptToolStripMenuItem,
+            this.imageToolStripMenuItem,
             this.toolStripSeparator1,
             this.alliesToolStripMenuItem,
             this.enemiesToolStripMenuItem});
@@ -373,52 +385,49 @@ partial class CocosToolsForm
             // atlasListToolStripMenuItem
             // 
             this.atlasListToolStripMenuItem.Name = "atlasListToolStripMenuItem";
-            this.atlasListToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.atlasListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.atlasListToolStripMenuItem.Text = "Animations";
             this.atlasListToolStripMenuItem.Click += new System.EventHandler(this.atlasListToolStripMenuItem_Click);
             // 
             // fontsToolStripMenuItem
             // 
             this.fontsToolStripMenuItem.Name = "fontsToolStripMenuItem";
-            this.fontsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.fontsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fontsToolStripMenuItem.Text = "Fonts";
             this.fontsToolStripMenuItem.Click += new System.EventHandler(this.fontsToolStripMenuItem_Click);
             // 
             // encryptToolStripMenuItem
             // 
             this.encryptToolStripMenuItem.Name = "encryptToolStripMenuItem";
-            this.encryptToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.encryptToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.encryptToolStripMenuItem.Text = "Encrypt";
             this.encryptToolStripMenuItem.Click += new System.EventHandler(this.encryptToolStripMenuItem_Click);
+            // 
+            // imageToolStripMenuItem
+            // 
+            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.imageToolStripMenuItem.Text = "Offset";
+            this.imageToolStripMenuItem.Click += new System.EventHandler(this.imageToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // alliesToolStripMenuItem
             // 
             this.alliesToolStripMenuItem.Name = "alliesToolStripMenuItem";
-            this.alliesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.alliesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.alliesToolStripMenuItem.Text = "Allies";
             this.alliesToolStripMenuItem.Click += new System.EventHandler(this.alliesToolStripMenuItem_Click);
             // 
             // enemiesToolStripMenuItem
             // 
             this.enemiesToolStripMenuItem.Name = "enemiesToolStripMenuItem";
-            this.enemiesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.enemiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.enemiesToolStripMenuItem.Text = "Enemies";
             this.enemiesToolStripMenuItem.Click += new System.EventHandler(this.enemiesToolStripMenuItem_Click);
-            // 
-            // listSprites
-            // 
-            this.listSprites.FormattingEnabled = true;
-            this.listSprites.ItemHeight = 12;
-            this.listSprites.Location = new System.Drawing.Point(18, 332);
-            this.listSprites.Name = "listSprites";
-            this.listSprites.Size = new System.Drawing.Size(144, 88);
-            this.listSprites.TabIndex = 13;
-            this.listSprites.SelectedIndexChanged += new System.EventHandler(this.listSprites_SelectedIndexChanged);
             // 
             // CocosToolsForm
             // 
@@ -486,5 +495,6 @@ partial class CocosToolsForm
     private System.Windows.Forms.ToolStripMenuItem alliesToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem enemiesToolStripMenuItem;
     private System.Windows.Forms.ListBox listSprites;
+    private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
 }
 
