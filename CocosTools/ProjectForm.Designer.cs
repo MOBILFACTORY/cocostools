@@ -59,6 +59,7 @@ partial class CocosToolsForm
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.alliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enemiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -375,6 +376,7 @@ partial class CocosToolsForm
             this.fontsToolStripMenuItem,
             this.encryptToolStripMenuItem,
             this.imageToolStripMenuItem,
+            this.mapExportToolStripMenuItem,
             this.toolStripSeparator1,
             this.alliesToolStripMenuItem,
             this.enemiesToolStripMenuItem});
@@ -428,6 +430,13 @@ partial class CocosToolsForm
             this.enemiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.enemiesToolStripMenuItem.Text = "Enemies";
             this.enemiesToolStripMenuItem.Click += new System.EventHandler(this.enemiesToolStripMenuItem_Click);
+            // 
+            // mapExportToolStripMenuItem
+            // 
+            this.mapExportToolStripMenuItem.Name = "mapExportToolStripMenuItem";
+            this.mapExportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mapExportToolStripMenuItem.Text = "Map Export";
+            this.mapExportToolStripMenuItem.Click += new System.EventHandler(this.mapExportToolStripMenuItem_Click);
             // 
             // CocosToolsForm
             // 
@@ -496,5 +505,6 @@ partial class CocosToolsForm
     private System.Windows.Forms.ToolStripMenuItem enemiesToolStripMenuItem;
     private System.Windows.Forms.ListBox listSprites;
     private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem mapExportToolStripMenuItem;
 }
 

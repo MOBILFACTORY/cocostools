@@ -104,6 +104,12 @@
     <Compile Include="FontForm.Designer.cs">
       <DependentUpon>FontForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MapExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MapExportForm.Designer.cs">
+      <DependentUpon>MapExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="OffsetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FontForm.resx">
       <DependentUpon>FontForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapExportForm.resx">
+      <DependentUpon>MapExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OffsetForm.resx">
       <DependentUpon>OffsetForm.cs</DependentUpon>

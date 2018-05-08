@@ -567,4 +567,10 @@ public partial class CocosToolsForm : Form
         form.Show();
         form.SetProject(currentProject);
     }
+
+    private void mapExportToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var form = new CocosTools.MapExportForm();
+        form.Show();
+    }
 }
